@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Loading data from a CSV file</title>
+		<script type="text/javascript" src="../d3.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+
+
+			//
+			// Function definitions
+			//
+			
+			var rowParser = function(d) {
+				
+				return {
+					foodName: d.Food, //No type conversion
+					yumScore: parseFloat(d.Deliciousness)
+				};
+				
+			}
+
+			var renderChart = function(dataset) {
+				
+				var svg = d3.select("body")
+					.append("svg")
+					.attr("width", 500)
+					.attr("height", 200);
+				
+				svg.selectAll("circle")
+					.data(dataset)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d) {
+						return d.yumScore * 10;
+					})
+					.attr("cy", function(d) {
+						return d.yumScore * 10;
+					})
+					.attr("r", 10)
+					.attr("fill", "blue");
+			}
+
+
+
+			//
+			// Load in the CSV
+			//
+			d3.csv("food.csv", rowParser).then(function(dataset) {
+				
+				// Then, call anything that depends on the data being loaded
+				console.log(dataset);
+				renderChart(dataset);
+				
+			});
+			
+			
+			
+			
+			// WARNING: Your CSV file may not be available here!
+			// Here, we are outside of the asynchronous CSV-loading process.
+
+
+
+		</script>
+	</body>
+</html>
