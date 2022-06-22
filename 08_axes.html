@@ -38,14 +38,8 @@
 			
 			//New function to generate random points
 			var generateRandomData = function(n) {
-				var maxRange = Math.random() * 1000;						//Max range of new values
-				var arrayOfPoints = [];  									//Initialize empty array
-				for (var i = 0; i < n; i++) {				 		//Loop numValues times
-					var newNumber1 = Math.floor(Math.random() * maxRange);	//New random integer
-					var newNumber2 = Math.floor(Math.random() * maxRange);	//New random integer
-					arrayOfPoints.push([newNumber1, newNumber2]);			//Add new number to array
-				}
-				return arrayOfPoints;
+				const maxRange = d3.randomInt(1000)();
+				return d3.range(n).map((d) => [d3.randomInt(maxRange)(), d3.randomInt(maxRange)()]);
 			}
 			
 			//Dynamic, random dataset
